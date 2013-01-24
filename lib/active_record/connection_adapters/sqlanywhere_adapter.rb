@@ -429,18 +429,15 @@ module ActiveRecord
         end
       end
 
-      def remove_column(table_name, *column_names)
-        column_names = column_names.flatten
-        column_names.zip(columns_for_remove(table_name, *column_names)).each do |unquoted_column_name, column_name|
-          sql = <<-SQL
-            SELECT "index_name" FROM SYS.SYSTAB join SYS.SYSTABCOL join SYS.SYSIDXCOL join SYS.SYSIDX
-            WHERE "column_name" = '#{unquoted_column_name}' AND "table_name" = '#{table_name}'
-          SQL
-          select(sql, nil).each do |row|
-            execute "DROP INDEX \"#{table_name}\".\"#{row['index_name']}\""      
-          end
-          exec_query "ALTER TABLE #{quote_table_name(table_name)} DROP #{column_name}"
+      def remove_column(table_name, column_name, type = nil, options = {})
+        sql = <<-SQL
+          SELECT "index_name" FROM SYS.SYSTAB join SYS.SYSTABCOL join SYS.SYSIDXCOL join SYS.SYSIDX
+          WHERE "column_name" = #{quote column_name} AND "table_name" = #{quote table_name}
+        SQL
+        select(sql, nil).each do |row|
+          execute "DROP INDEX #{quote_table_name(table_name)}.#{quote_column_name row['index_name']}"
         end
+        execute "ALTER TABLE #{quote_table_name(table_name)} DROP #{quote_column_name(column_name)}"
       end
 
      def disable_referential_integrity(&block) #:nodoc:
