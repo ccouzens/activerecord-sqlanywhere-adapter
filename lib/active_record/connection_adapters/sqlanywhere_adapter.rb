@@ -307,7 +307,7 @@ module ActiveRecord
       end
       
       def last_inserted_id(result)
-        select('SELECT @@IDENTITY').first["@@IDENTITY"]
+        select_value('SELECT @@IDENTITY')
       end
 
       def begin_db_transaction #:nodoc:   
