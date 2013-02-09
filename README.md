@@ -37,14 +37,19 @@ Running the ActiveRecord Unit Test Suite
 1. Download https://github.com/ccouzens/rails and checkout the sqlanywhere_testing branch.
 
 2. Create the two test databases. These can be created in any directory.
-
 <pre>
-      dbinit -c arunit
-      dbinit -c arunit2
-      dbsrv11 arunit arunit2
+    #!/usr/bin/env bash
+    source /opt/sqlanywhere12/bin64/sa_config.sh
+    if [ ! -e arunit.db ]
+    then
+        dbinit -c arunit
+    fi
+    if [ ! -e arunit2.db ]
+    then
+        dbinit -c arunit2
+    fi
+    dbsrv12 arunit arunit2 >/dev/null &
 </pre>
-
-   <b>If the commands cannot be found, make sure you have set up the SQL Anywhere environment variables correctly.</b> For more information review the online documentation [here](http://dcx.sybase.com/index.php#http%3A%2F%2Fdcx.sybase.com%2F1100en%2Fdbadmin_en11%2Fda-envvar-sect1-3672410.html).
 
 3. Enter the custom Rails repository.
 
