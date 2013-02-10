@@ -4,19 +4,13 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Eric Farar}]
-  s.description = %q{ActiveRecord driver for SQL Anywhere}
-  s.email = %q{eric.farrar@ianywhere.com}
+  s.email = %q{ccouzens@gmail.com}
   s.files = [
-    "CHANGELOG",
     "LICENSE",
     "README.md",
-    "Rakefile",
-    "test/connection.rb",
     "lib/active_record/connection_adapters/sqlanywhere_adapter.rb",
     "lib/arel/visitors/sqlanywhere.rb",
-    "lib/active_record/connection_adapters/sqlanywhere.rake",
     "lib/activerecord-sqlanywhere-adapter.rb"
-
   ]
   s.homepage = %q{http://sqlanywhere.rubyforge.org}
   s.licenses = [%q{Apache License Version 2.0}]
