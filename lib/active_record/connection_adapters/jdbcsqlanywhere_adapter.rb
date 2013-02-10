@@ -38,7 +38,7 @@ module ActiveRecord
     # * :commlinks (optional). Corresponds to "CommLinks=" in connection string
     # * :connection_name (optional). Corresponds to "ConnectionName=" in connection string
     
-    def self.sqlanywhere_jdbc_connection(config)
+    def self.jdbcsqlanywhere_connection(config)
       
       if config[:connection_string]
         connection_string = config[:connection_string]
@@ -72,7 +72,7 @@ module ActiveRecord
         :url => url
         })
       
-      ConnectionAdapters::SQLAnywhereJdbcAdapter.new(conn, logger)
+      ConnectionAdapters::JdbcSQLAnywhereAdapter.new(conn, logger)
     end
   end
 
@@ -139,7 +139,7 @@ module ActiveRecord
 		
     end
     
-    class SQLAnywhereJdbcAdapter < AbstractAdapter
+    class JdbcSQLAnywhereAdapter < AbstractAdapter
       delegate :select_rows, :execute, :exec_query, to: :raw_connection
       def initialize( connection, logger, pool = nil) #:nodoc:
         super(connection, logger)

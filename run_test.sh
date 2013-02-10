@@ -16,4 +16,4 @@ sleep 1
 
 cd ~/Documents/rails/activerecord/
 
-SQLANYWHERE=sqlanywhere rake test_sqlanywhere > ../../activerecord-sqlanywhere-adapter/test_output.txt 2> ../../activerecord-sqlanywhere-adapter/test_error.txt
+SQLANYWHERE=sqlanywhere rake test_jdbcsqlanywhere > ../../activerecord-sqlanywhere-adapter/test_output.txt 2> ../../activerecord-sqlanywhere-adapter/test_error.txt

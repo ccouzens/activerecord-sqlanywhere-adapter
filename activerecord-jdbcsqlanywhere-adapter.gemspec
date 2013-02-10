@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name = %q{activerecord-sqlanywhere-jdbc-adapter}
+  s.name = %q{activerecord-jdbcsqlanywhere-adapter}
   s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.files = [
     "LICENSE",
     "README.md",
-    "lib/active_record/connection_adapters/sqlanywhere_jdbc_adapter.rb",
+    "lib/active_record/connection_adapters/jdbcsqlanywhere_adapter.rb",
     "lib/arel/visitors/sqlanywhere.rb",
   ]
   s.homepage = %q{http://sqlanywhere.rubyforge.org}
