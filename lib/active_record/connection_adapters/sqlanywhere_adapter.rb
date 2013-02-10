@@ -25,36 +25,6 @@
 require 'active_record/connection_adapters/abstract_adapter'
 require 'arel/visitors/sqlanywhere.rb'
 
-# Singleton class to hold a valid instance of the SQLAnywhereInterface across all connections
-class SA
-  include Singleton
-  def api
-    if @pid != Process.pid
-      reset_api
-    end
-    @api
-  end
-
-  def initialize
-    @api = nil
-    @pid = nil
-    require 'sqlanywhere' unless defined? SQLAnywhere
-    reset_api
-  end
-
-  private
-  def reset_api
-    @pid = Process.pid
-    if @api != nil
-      @api.sqlany_fini()
-      SQLAnywhere::API.sqlany_finalize_interface( @api )
-    end
-    @api = SQLAnywhere::SQLAnywhereInterface.new()
-    raise LoadError, "Could not load SQLAnywhere DBCAPI library" if SQLAnywhere::API.sqlany_initialize_interface(@api) == 0 
-    raise LoadError, "Could not initialize SQLAnywhere DBCAPI library" if @api.sqlany_init() == 0 
-  end
-end
-
 module ActiveRecord
   class Base
     DEFAULT_CONFIG = { :username => 'dba', :password => 'sql' }
@@ -178,16 +148,6 @@ module ActiveRecord
         false
       end
 
-      def disconnect!
-        result = SA.instance.api.sqlany_disconnect( @connection )
-        super
-      end
-
-      def reconnect!
-        disconnect!
-        connect!
-      end
-
       def supports_count_distinct? #:nodoc:
         true
       end
@@ -196,31 +156,6 @@ module ActiveRecord
         true
       end
 
-      # Maps native ActiveRecord/Ruby types into SQLAnywhere types
-      # TINYINTs are treated as the default boolean value
-      # ActiveRecord allows NULLs in boolean columns, and the SQL Anywhere BIT type does not
-      # As a result, TINYINT must be used. All TINYINT columns will be assumed to be boolean and
-      # should not be used as single-byte integer columns. This restriction is similar to other ActiveRecord database drivers
-      def native_database_types #:nodoc:
-        {
-          :primary_key => 'INTEGER PRIMARY KEY DEFAULT AUTOINCREMENT NOT NULL',
-          :string      => { :name => "varchar", :limit => 255 },
-          :text        => { :name => "long varchar" },
-          :integer     => { :name => "integer", :limit => 4 },
-          :float       => { :name => "float" },
-          :decimal     => { :name => "decimal" },
-          :datetime    => { :name => "datetime" },
-          :timestamp   => { :name => "datetime" },
-          :time        => { :name => "time" },
-          :date        => { :name => "date" },
-          :binary      => { :name => "binary" },
-          :boolean     => { :name => "tinyint", :limit => 1}
-        }
-      end
-      
-      def select_rows(sql, name = nil)
-        exec_query(sql, name).rows
-      end
 
       # QUOTING ==================================================
 
@@ -252,76 +187,8 @@ module ActiveRecord
         end
       end
 
-      # The database execution function
-      def execute(sql, name = nil) #:nodoc:
-        if name == :skip_logging
-          begin
-            stmt = SA.instance.api.sqlany_prepare(@connection, sql)
-            sqlanywhere_error_test(sql) if stmt==nil
-            r = SA.instance.api.sqlany_execute(stmt)
-            sqlanywhere_error_test(sql) if r==0
-            @affected_rows = SA.instance.api.sqlany_affected_rows(stmt)
-            sqlanywhere_error_test(sql) if @affected_rows==-1
-          rescue StandardError => e
-            @affected_rows = 0
-            raise e
-          ensure
-            SA.instance.api.sqlany_free_stmt(stmt)
-          end
-
-        else
-          log(sql, name) { execute(sql, :skip_logging) }
-        end
-        @affected_rows
-      end
-      
-      def sqlanywhere_error_test(sql = '')
-        error_code, error_message = SA.instance.api.sqlany_error(@connection)
-        if error_code != 0
-          sqlanywhere_error(error_code, error_message, sql)
-        end
-      end
-      
-      def sqlanywhere_error(code, message, sql)        
-        raise SQLAnywhereException.new(message, code, sql)
-      end
-
-      def translate_exception(exception, message)
-        return super unless exception.respond_to?(:errno)
-        case exception.errno
-          when -143
-            if exception.sql !~ /^SELECT/i then
-              raise ActiveRecord::ActiveRecordError.new(message)
-            else
-              super
-            end
-          when -194
-            raise InvalidForeignKey.new(message, exception)
-          when -196
-            raise RecordNotUnique.new(message, exception)
-          when -183
-            raise ArgumentError, message
-          else
-            super
-        end
-      end
-      
       def last_inserted_id(result)
         select_value('SELECT @@IDENTITY')
-      end
-
-      def begin_db_transaction #:nodoc:   
-        @auto_commit = false;
-      end
-
-      def commit_db_transaction #:nodoc:
-        SA.instance.api.sqlany_commit(@connection)
-        @auto_commit = true;
-      end
-
-      def rollback_db_transaction #:nodoc:
-        SA.instance.api.sqlany_rollback(@connection)
-        @auto_commit = true;
       end
 
       # SQL Anywhere does not support sizing of integers based on the sytax INTEGER(size). Integer sizes
@@ -450,14 +317,8 @@ module ActiveRecord
          update("SET TEMPORARY OPTION wait_for_commit = #{old}")
        end
      end
-      
-	  
-	  				
+
       protected
-      
-        def select(sql, name = nil, binds = []) #:nodoc:
-           exec_query(sql, name, binds).to_a
-        end
 
         # Queries the structure of a table including the columns names, defaults, type, and nullability 
         # ActiveRecord uses the type to parse scale and precision information out of the types. As a result,
@@ -506,124 +367,15 @@ SQL
 
       private
 
-        def connect!
-          result = SA.instance.api.sqlany_connect(@connection, @connection_string)
-          if result == 1 then
-            set_connection_options
-          else
-            error = SA.instance.api.sqlany_error(@connection)
-            raise ActiveRecord::ActiveRecordError.new("#{error}: Cannot Establish Connection")
-          end
-        end
-
         def set_connection_options
-          SA.instance.api.sqlany_execute_immediate(@connection, "SET TEMPORARY OPTION non_keywords = 'LOGIN'") rescue nil
+          execute(@connection, "SET TEMPORARY OPTION non_keywords = 'LOGIN'") rescue nil
           SA.instance.api.sqlany_execute_immediate(@connection, "SET TEMPORARY OPTION timestamp_format = 'YYYY-MM-DD HH:NN:SS'") rescue nil
-          #SA.instance.api.sqlany_execute_immediate(@connection, "SET OPTION reserved_keywords = 'LIMIT'") rescue nil
+          #execute(@connection, "SET OPTION reserved_keywords = 'LIMIT'") rescue nil
           # The liveness variable is used a low-cost "no-op" to test liveness
-          SA.instance.api.sqlany_execute_immediate(@connection, "CREATE VARIABLE liveness INT") rescue nil
+          execute(@connection, "CREATE VARIABLE liveness INT") rescue nil
         end
 		
-      def exec_query(sql, name = nil, binds = [])
-        log(sql, name, binds) do
-          stmt = SA.instance.api.sqlany_prepare(@connection, sql)
-          sqlanywhere_error_test(sql) if stmt==nil
-          
-          begin
-            
-            for i in 0...binds.length
-              bind_type = binds[i][0].type
-              bind_value = binds[i][1]
-              result, bind_param = SA.instance.api.sqlany_describe_bind_param(stmt, i)
-              sqlanywhere_error_test(sql) if result==0
-              
-              bind_param.set_direction(1) # https://github.com/sqlanywhere/sqlanywhere/blob/master/ext/sacapi.h#L175
-              if bind_value.nil?
-                bind_param.set_value(nil)
-              else
-                # perhaps all this ought to be handled in the column class?
-                case bind_type
-                when :boolean
-                  bind_param.set_value(bind_value ? 1 : 0)
-                when :decimal
-                  bind_param.set_value(bind_value.to_s)
-                when :date
-                  bind_param.set_value(bind_value.to_s)
-                when :datetime, :time
-                  bind_param.set_value(bind_value.to_time.getutc.strftime("%Y-%m-%d %H:%M:%S"))
-                when :integer
-                  bind_param.set_value(bind_value.to_i)
-                else
-                  bind_param.set_value(bind_value)
-                end
-              end
-              result = SA.instance.api.sqlany_bind_param(stmt, i, bind_param)
-              sqlanywhere_error_test(sql) if result==0
-              
-            end
-            
-            if SA.instance.api.sqlany_execute(stmt) == 0
-              sqlanywhere_error_test(sql)
-            end
-            
-            fields = []
-            native_types = []
-            
-            num_cols = SA.instance.api.sqlany_num_cols(stmt)
-            sqlanywhere_error_test(sql) if num_cols == -1
-            
-            for i in 0...num_cols
-              result, col_num, name, ruby_type, native_type, precision, scale, max_size, nullable = SA.instance.api.sqlany_get_column_info(stmt, i)
-              sqlanywhere_error_test(sql) if result==0
-              fields << name
-              native_types << native_type
-            end
-            rows = []
-            while SA.instance.api.sqlany_fetch_next(stmt) == 1
-              row = []
-              for i in 0...num_cols
-                r, value = SA.instance.api.sqlany_get_column(stmt, i)
-                row << native_type_to_ruby_type(native_types[i], value)
-              end
-              rows << row
-            end
-            @affected_rows = SA.instance.api.sqlany_affected_rows(stmt)
-            sqlanywhere_error_test(sql) if @affected_rows==-1
-          rescue StandardError => e
-            @affected_rows = 0
-            raise e
-          ensure
-            SA.instance.api.sqlany_free_stmt(stmt)
-          end
-          
-          if @auto_commit
-            result = SA.instance.api.sqlany_commit(@connection)
-            sqlanywhere_error_test(sql) if result==0
-          end
-          return ActiveRecord::Result.new(fields, rows)
-        end
-      end
-        
-      def exec_delete(sql, name = 'SQL', binds = [])
-        exec_query(sql, name, binds)
-        @affected_rows
-      end
-      alias :exec_update :exec_delete
 
-        # convert sqlany type to ruby type
-        # the types are taken from here
-        # http://dcx.sybase.com/1101/en/dbprogramming_en11/pg-c-api-native-type-enum.html
-        def native_type_to_ruby_type(native_type, value)
-          return nil if value.nil?
-          case native_type
-          when 484 # DT_DECIMAL (also and more importantly numeric)
-            BigDecimal.new(value)
-          when 448,452,456,460,640  # DT_VARCHAR, DT_FIXCHAR, DT_LONGVARCHAR, DT_STRING, DT_LONGNVARCHAR
-            value.force_encoding(ActiveRecord::Base.connection_config['encoding'] || "UTF-8")
-          else
-            value
-          end
-        end
     end
   end
 end
