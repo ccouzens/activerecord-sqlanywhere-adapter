@@ -22,12 +22,12 @@
 #
 #====================================================
 
+require 'activerecord-jdbc-adapter'
 require 'active_record/connection_adapters/abstract_adapter'
 require 'arel/visitors/sqlanywhere.rb'
 
 module ActiveRecord
   class Base
-    DEFAULT_CONFIG = { :username => 'dba', :password => 'sql' }
     # Main connection function to SQL Anywhere
     # Connection Adapter takes four parameters:
     # * :database (required, no default). Corresponds to "DatabaseName=" in connection string
@@ -38,12 +38,12 @@ module ActiveRecord
     # * :commlinks (optional). Corresponds to "CommLinks=" in connection string
     # * :connection_name (optional). Corresponds to "ConnectionName=" in connection string
     
-    def self.sqlanywhere_connection(config)
+    def self.sqlanywhere_jdbc_connection(config)
       
       if config[:connection_string]
         connection_string = config[:connection_string]
       else
-        config = DEFAULT_CONFIG.merge(config)
+        config = { :username => 'dba', :password => 'sql' }.merge(config)
 
         raise ArgumentError, "No database name was given. Please add a :database option." unless config.has_key?(:database)
 
@@ -54,13 +54,33 @@ module ActiveRecord
         connection_string += "Idle=0" # Prevent the server from disconnecting us if we're idle for >240mins (by default)
       end
 
-      db = SA.instance.api.sqlany_new_connection()
+      url = 'jdbc:sqlanywhere:' + connection_string
+
+      if ENV["SQLANY12"]
+        $CLASSPATH << Pathname.new(ENV["SQLANY12"]).join('java').join('sajdbc4.jar').to_s
+        driver = 'sybase.jdbc4.sqlanywhere.IDriver'
+      elsif ENV["SQLANY11"]
+        $CLASSPATH << Pathname.new(ENV["SQLANY11"]).join('java').join('sajdbc.jar').to_s
+        driver = 'sybase.jdbc.sqlanywhere.IDriver'
+      else
+        raise "Cannot find SqlAnywhere11 or 12 installation directory"
+      end
+
+      conn = ActiveRecord::Base.jdbc_connection({
+        :adapter => 'jdbc',
+        :driver => driver,
+        :url => url
+        })
       
-      ConnectionAdapters::SQLAnywhereAdapter.new(db, logger, connection_string)
+      ConnectionAdapters::SQLAnywhereJdbcAdapter.new(conn, logger)
     end
   end
 
   module ConnectionAdapters
+    class JdbcTypeConverter
+      AR_TO_JDBC_TYPES[:text] << lambda {|r| r['type_name'] =~ /^long varchar$/i}
+    end
+
     class SQLAnywhereException < StandardError
       attr_reader :errno
       attr_reader :sql
@@ -119,18 +139,15 @@ module ActiveRecord
 		
     end
     
-    class SQLAnywhereAdapter < AbstractAdapter
-      def initialize( connection, logger, connection_string = "") #:nodoc:
+    class SQLAnywhereJdbcAdapter < AbstractAdapter
+      delegate :select_rows, :execute, :exec_query, to: :raw_connection
+      def initialize( connection, logger, pool = nil) #:nodoc:
         super(connection, logger)
-        @auto_commit = true
-        @affected_rows = 0
-        @connection_string = connection_string
         @visitor = Arel::Visitors::SQLAnywhere.new self
-        connect!
       end
       
       def adapter_name #:nodoc:
-        'SQLAnywhere'
+        'SQLAnywhereJDBC'
       end
 
       def supports_migrations? #:nodoc:
@@ -143,7 +160,7 @@ module ActiveRecord
    
       def active?
         # The liveness variable is used a low-cost "no-op" to test liveness
-        SA.instance.api.sqlany_execute_immediate(@connection, "SET liveness = 1") == 1
+        select_value(@connection, "SET liveness = 1") == 1
       rescue
         false
       end
@@ -319,6 +336,8 @@ module ActiveRecord
      end
 
       protected
+      
+        delegate :select, to: :raw_connection
 
         # Queries the structure of a table including the columns names, defaults, type, and nullability 
         # ActiveRecord uses the type to parse scale and precision information out of the types. As a result,
@@ -369,7 +388,7 @@ SQL
 
         def set_connection_options
           execute(@connection, "SET TEMPORARY OPTION non_keywords = 'LOGIN'") rescue nil
-          SA.instance.api.sqlany_execute_immediate(@connection, "SET TEMPORARY OPTION timestamp_format = 'YYYY-MM-DD HH:NN:SS'") rescue nil
+          execute(@connection, "SET TEMPORARY OPTION timestamp_format = 'YYYY-MM-DD HH:NN:SS'") rescue nil
           #execute(@connection, "SET OPTION reserved_keywords = 'LIMIT'") rescue nil
           # The liveness variable is used a low-cost "no-op" to test liveness
           execute(@connection, "CREATE VARIABLE liveness INT") rescue nil
