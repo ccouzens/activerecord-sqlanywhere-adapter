@@ -252,6 +252,10 @@ module ActiveRecord
         end
       end
 
+      def quote_table_name_for_assignment(table, attr)
+        "#{quote_table_name table}.#{quote_column_name attr}"
+      end
+
       # The database execution function
       def execute(sql, name = nil) #:nodoc:
         if name == :skip_logging
