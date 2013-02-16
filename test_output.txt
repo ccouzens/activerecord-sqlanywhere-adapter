@@ -1,11 +1,11 @@
 Using sqlanywhere
-Run options: --seed 38118
+Run options: --seed 18444
 
 # Running tests:
 
-.............SSS...................................................................................................................................................................................................................................S..SSSSSSS.......................................................S......................................................S..................................................................SSSSSS...............................................................................................................................................................................................................................E..................................................................................................................................................................................................................................................................F.F...........S...................................................................................................................................................................................................................................E......................................................................................................................F.................................................................................................................................................................................................................E......E.E................EE.E..................................................................................................................................E......................................F.................................................................................................E...............E........E.......................................................................................F.....................................................................................................................................F...F......E........................................................E........................................................................................................................................................................................................................................E........................................................F.S......S.S..................................................E.............................................................................................................................................................................................................F...F....................................EEEE......................................F...F..............................................................................................................................................................E.E.............................................................................................E.E......................................................................................................................................................................................................................................................................................................................................................................................................................SSSSSS..........................E..........S....E....................................
+.............SSS...................................................................................................................................................................................................................................S..SSSSSSS.......................................................S......................................................S..................................................................SSSSSS...............................................................................................................................................................................................................................E..................................................................................................................................................................................................................................................................F.F...........S...................................................................................................................................................................................................................................E......................................................................................................................F.................................................................................................................................................................................................................E......E.E................EE.E..................................................................................................................................E........................................................................................................................................E...............E........E.......................................................................................F.....................................................................................................................................F...F......E........................................................E........................................................................................................................................................................................................................................E........................................................F.S......S.S..................................................E.............................................................................................................................................................................................................F...F....................................EEEE......................................F...F..............................................................................................................................................................E.E.............................................................................................E.E......................................................................................................................................................................................................................................................................................................................................................................................................................SSSSSS..........................E..........S....E....................................
 
-Finished tests in 278.700530s, 12.5403 tests/s, 35.7803 assertions/s.
+Finished tests in 289.193425s, 12.0853 tests/s, 34.4890 assertions/s.
 
   1) Error:
 test_eager_load_has_many_through_has_many(AssociationsJoinModelTest):
@@ -77,7 +77,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
 
   5) Failure:
 test_should_serialize_datetime_with_timezone_reloaded(DefaultXmlSerializationTimezoneTest) [/home/chris/Documents/rails/activerecord/test/cases/xml_serialization_test.rb:176]:
-Expected /<updated-at type=\"dateTime\">2006-07-31T17:00:00-07:00<\/updated-at>/ to match "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<toy>\n  <toy-id type=\"integer\">3</toy-id>\n  <name>Minnie</name>\n  <pet-id type=\"integer\" nil=\"true\"/>\n  <integer type=\"integer\" nil=\"true\"/>\n  <created-at type=\"dateTime\">2013-02-16T06:17:46-08:00</created-at>\n  <updated-at type=\"dateTime\">2006-07-31T16:00:00-07:00</updated-at>\n</toy>\n".
+Expected /<updated-at type=\"dateTime\">2006-07-31T17:00:00-07:00<\/updated-at>/ to match "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<toy>\n  <toy-id type=\"integer\">3</toy-id>\n  <name>Minnie</name>\n  <pet-id type=\"integer\" nil=\"true\"/>\n  <integer type=\"integer\" nil=\"true\"/>\n  <created-at type=\"dateTime\">2013-02-16T07:12:30-08:00</created-at>\n  <updated-at type=\"dateTime\">2006-07-31T16:00:00-07:00</updated-at>\n</toy>\n".
 
   6) Error:
 test_include_has_many_using_primary_key(EagerAssociationTest):
@@ -265,13 +265,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
     /home/chris/Documents/rails/activerecord/test/cases/finder_test.rb:793:in `test_find_with_order_on_included_associations_with_construct_finder_sql_for_association_limiting_and_is_distinct'
 
- 13) Failure:
-test_take_and_first_and_last_with_integer_should_use_sql_limit(FinderTest) [/home/chris/Documents/rails/activerecord/test/cases/finder_test.rb:253]:
-Query pattern(s) /LIMIT 3|ROWNUM <= 3/ not found.
-Queries:
-SELECT  "topics".* FROM "topics"  LIMIT (3)
-
- 14) Error:
+ 13) Error:
 test_count_with_finder_sql(HasAndBelongsToManyAssociationsTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT COUNT(*) FROM developers_projects j, developers t WHERE t.id = j.developer_id AND j.project_id = 1 ORDER BY t.id
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -293,7 +287,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/associations/collection_proxy.rb:672:in `count'
     /home/chris/Documents/rails/activerecord/test/cases/associations/has_and_belongs_to_many_associations_test.rb:804:in `test_count_with_finder_sql'
 
- 15) Error:
+ 14) Error:
 test_dynamic_find_should_respect_association_include(HasAndBelongsToManyAssociationsTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "categorizations" ON "categorizations"."category_id" = "posts"."id" LEFT OUTER JOIN "authors" ON "authors"."id" = "categorizations"."author_id" INNER JOIN "categories_posts" ON "posts"."id" = "categories_posts"."post_id" WHERE "categories_posts"."category_id" = ? AND "posts"."title" = 'Welcome to the weblog'  ORDER BY authors.id LIMIT (1)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -328,7 +322,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/collection_proxy.rb:16:in `method_missing'
     /home/chris/Documents/rails/activerecord/test/cases/associations/has_and_belongs_to_many_associations_test.rb:786:in `test_dynamic_find_should_respect_association_include'
 
- 16) Error:
+ 15) Error:
 test_find_scoped_grouped_having(HasAndBelongsToManyAssociationsTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Invalid expression near 'SUM': SELECT SUM(salary) as salary FROM "developers" INNER JOIN "developers_projects" ON "developers"."id" = "developers_projects"."developer_id" WHERE "developers_projects"."project_id" = ? GROUP BY developers.salary HAVING SUM(salary) > 10000
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -355,13 +349,13 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/associations/collection_proxy.rb:700:in `size'
     /home/chris/Documents/rails/activerecord/test/cases/associations/has_and_belongs_to_many_associations_test.rb:710:in `test_find_scoped_grouped_having'
 
- 17) Failure:
+ 16) Failure:
 test_clearing_updates_counter_cache_when_inverse_counter_cache_is_a_symbol_with_dependent_destroy(HasManyAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:872]:
 "car.reload.engines_count" didn't change by -1.
 Expected: 0
   Actual: -1
 
- 18) Failure:
+ 17) Failure:
 test_transaction_when_deleting_persisted(HasManyAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:831]:
 --- expected
 +++ actual
@@ -370,7 +364,7 @@ test_transaction_when_deleting_persisted(HasManyAssociationsTest) [/home/chris/D
 +#<ActiveRecord::Associations::CollectionProxy [#<Client id: 112, type: "Client", firm_id: nil, firm_name: nil, name: "Bad", client_of: 1, rating: 1, account_id: nil, description: "">]>
 
 
- 19) Failure:
+ 18) Failure:
 test_transactions_when_replacing_on_persisted(HasManyAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:1242]:
 --- expected
 +++ actual
@@ -379,7 +373,7 @@ test_transactions_when_replacing_on_persisted(HasManyAssociationsTest) [/home/ch
 +#<ActiveRecord::Associations::CollectionProxy []>
 
 
- 20) Error:
+ 19) Error:
 test_should_generate_valid_sql(HasManyAssociationsTestForReorderWithJoinDependency):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'comments_count' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? AND (comments.id > 0)  ORDER BY posts.comments_count ASC, posts.taggings_count ASC LIMIT (1)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -406,7 +400,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:146:in `last'
     /home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:104:in `test_should_generate_valid_sql'
 
- 21) Error:
+ 20) Error:
 test_dynamic_find_should_respect_association_include(HasManyThroughAssociationsTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" INNER JOIN "readers" ON "posts"."id" = "readers"."post_id" WHERE "readers"."person_id" = ? AND "posts"."title" = 'Welcome to the weblog'  ORDER BY comments.id LIMIT (1)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -439,7 +433,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/relation/delegation.rb:36:in `find_by_title'
     /home/chris/Documents/rails/activerecord/test/cases/associations/has_many_through_associations_test.rb:527:in `test_dynamic_find_should_respect_association_include'
 
- 22) Error:
+ 21) Error:
 test_parent_instance_should_be_shared_with_eager_loaded_children(InverseHasManyTests):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "men".id FROM "men" LEFT OUTER JOIN "interests" ON "interests"."man_id" = "men"."id" WHERE "men"."name" = 'Gordon'  ORDER BY interests.id LIMIT (1)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -466,11 +460,11 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:129:in `first'
     /home/chris/Documents/rails/activerecord/test/cases/associations/inverse_associations_test.rb:192:in `test_parent_instance_should_be_shared_with_eager_loaded_children'
 
- 23) Failure:
+ 22) Failure:
 test_add_table_with_decimals(MigrationTest) [/home/chris/Documents/rails/activerecord/test/cases/migration_test.rb:171]:
-Expected #<BigDecimal:625d270,'0.2718282E1',18(18)> to be a kind of Fixnum, not BigDecimal.
+Expected #<BigDecimal:94d7cc8,'0.2718282E1',18(18)> to be a kind of Fixnum, not BigDecimal.
 
- 24) Error:
+ 23) Error:
 test_associations_should_work_when_model_has_no_connection(MultipleDbTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionNotEstablished: ActiveRecord::ConnectionNotEstablished: SELECT  "colleges".* FROM "colleges"   ORDER BY "colleges"."id" ASC LIMIT (1)
     /home/chris/Documents/rails/activerecord/lib/active_record/connection_handling.rb:75:in `connection_pool'
@@ -502,16 +496,16 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionNotEstablished: ActiveRe
     /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
     /home/chris/Documents/rails/activerecord/test/cases/multiple_db_test.rb:100:in `test_associations_should_work_when_model_has_no_connection'
 
- 25) Failure:
+ 24) Failure:
 test_string_ids(PersistencesTest) [/home/chris/Documents/rails/activerecord/test/cases/persistence_test.rb:405]:
 Expected: "1234"
   Actual: "'1234'"
 
- 26) Failure:
+ 25) Failure:
 test_update_all_doesnt_ignore_order(PersistencesTest) [/home/chris/Documents/rails/activerecord/test/cases/persistence_test.rb:44]:
 Failed assertion, no message given.
 
- 27) Error:
+ 26) Error:
 test_eager_find_with_lock(PessimisticLockingTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -547,7 +541,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
     /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:371:in `test_eager_find_with_lock'
 
- 28) Error:
+ 27) Error:
 test_sane_find_with_lock(PessimisticLockingTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -583,7 +577,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
     /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:360:in `test_sane_find_with_lock'
 
- 29) Error:
+ 28) Error:
 test_sane_lock_method(PessimisticLockingTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -627,7 +621,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
     /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:381:in `test_sane_lock_method'
 
- 30) Error:
+ 29) Error:
 test_with_lock_commits_transaction(PessimisticLockingTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -671,11 +665,11 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/locking/pessimistic.rb:70:in `with_lock'
     /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:393:in `test_with_lock_commits_transaction'
 
- 31) Failure:
+ 30) Failure:
 test_cache_does_not_wrap_string_results_in_arrays(QueryCacheTest) [/home/chris/Documents/rails/activerecord/test/cases/query_cache_test.rb:175]:
 Expected 2 to be an instance of String, not Fixnum.
 
- 32) Failure:
+ 31) Failure:
 test_cache_is_ignored_for_locked_relations(QueryCacheTest) [/home/chris/Documents/rails/activerecord/test/cases/query_cache_test.rb:184]:
 1 instead of 2 queries were executed.
 Queries:
@@ -683,7 +677,7 @@ SELECT  "tasks".* FROM "tasks"  WHERE "tasks"."id" = ? LIMIT (1) FOR UPDATE.
 Expected: 2
   Actual: 1
 
- 33) Error:
+ 32) Error:
 test_finding_with_complex_order_and_limit(RelationTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'taggable_type' in the ORDER BY clause is invalid: SELECT  DISTINCT "tags".id FROM "tags" LEFT OUTER JOIN "taggings" ON "taggings"."tag_id" = "tags"."id"  ORDER BY REPLACE('abc', taggings.taggable_type, taggings.taggable_type) LIMIT (1)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -707,7 +701,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
     /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:209:in `test_finding_with_complex_order_and_limit'
 
- 34) Error:
+ 33) Error:
 test_finding_with_cross_table_order_and_limit(RelationTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'name' in the ORDER BY clause is invalid: SELECT  DISTINCT "tags".id FROM "tags" LEFT OUTER JOIN "taggings" ON "taggings"."tag_id" = "tags"."id"  ORDER BY tags.name asc, taggings.taggable_id asc, REPLACE('abc', taggings.taggable_type, taggings.taggable_type) LIMIT (1)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -731,7 +725,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
     /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:202:in `test_finding_with_cross_table_order_and_limit'
 
- 35) Error:
+ 34) Error:
 test_update_all_with_joins_and_limit(RelationTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: The result returned is non-deterministic: UPDATE "comments" SET "comments"."post_id" = 2 WHERE "comments"."id" IN (SELECT  "comments"."id" FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" WHERE "posts"."id" = 1 LIMIT (1))
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -748,7 +742,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:54:in `update_all_with_deprecated_options'
     /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:1221:in `test_update_all_with_joins_and_limit'
 
- 36) Error:
+ 35) Error:
 test_update_all_with_joins_and_offset(RelationTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: The result returned is non-deterministic: UPDATE "comments" SET "comments"."post_id" = 2 WHERE "comments"."id" IN (SELECT "comments"."id" FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" WHERE "posts"."id" = 1 LIMIT (2147483647) OFFSET (1))
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -765,7 +759,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:54:in `update_all_with_deprecated_options'
     /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:1236:in `test_update_all_with_joins_and_offset'
 
- 37) Error:
+ 36) Error:
 test_leaky_destroy(TransactionalFixturesOnCustomConnectionTest):
 ActiveRecord::RecordNotFound: Couldn't find Course with id=1
     /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:265:in `find_one'
@@ -781,7 +775,7 @@ ActiveRecord::RecordNotFound: Couldn't find Course with id=1
     /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
     /home/chris/Documents/rails/activerecord/test/cases/fixtures_test.rb:501:in `test_leaky_destroy'
 
- 38) Error:
+ 37) Error:
 test_validate_uniqueness_with_limit_and_utf8(UniquenessValidationTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Right truncation of string data: INSERT INTO "events" ("title") VALUES (?)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -798,13 +792,13 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:436:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/attribute_methods/dirty.rb:78:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:303:in `block in create_record'
-    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__283995114647699799__create__callbacks'
+    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__1725531952397684970__create__callbacks'
     /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:78:in `run_callbacks'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:303:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/timestamp.rb:57:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:413:in `create_or_update'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:299:in `block in create_or_update'
-    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__283995114647699799__save__callbacks'
+    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__1725531952397684970__save__callbacks'
     /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:78:in `run_callbacks'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:299:in `create_or_update'
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:101:in `save'
@@ -823,4 +817,4 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:37:in `create'
     /home/chris/Documents/rails/activerecord/test/cases/validations/uniqueness_validation_test.rb:315:in `test_validate_uniqueness_with_limit_and_utf8'
 
-3495 tests, 9972 assertions, 12 failures, 26 errors, 30 skips
+3495 tests, 9974 assertions, 11 failures, 26 errors, 30 skips
