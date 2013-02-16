@@ -1,11 +1,11 @@
 Using sqlanywhere
-Run options: --seed 13907
+Run options: --seed 37356
 
 # Running tests:
 
-.............SSS...................................................................................................................................................................................................................................S..SSSSSSS.......................................................S..............................................F.......S..................................................................SSSSSS..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................F.F...........S........................................................................................................................................F.................................................................................................................................................................................................................F.................................................................................................................................F................................................F.F...................................F.F...................F.....................................................................F............................................................F......................................F.................................................................................................E........................E.......................................................................................F.....................................................................................................................................F...F.................................................................................................................................................................................................................................................................................................................................................................F.S......S.S..................................................E.......................................................................FF....................................................................................................................................F...F..............................................................................F..................................................................................................................................................................................................................................................................E.E......................................................................................................................................................................................................................................................................................................................................................................................................................SSSSSS..........................E..........S....E....................................
+.............SSS...................................................................................................................................................................................................................................S..SSSSSSS.......................................................S..............................................F.......S..................................................................SSSSSS...............................................................................................................................................................................................................................E..................................................................................................................................................................................................................................................................F.F...........S...................................................................................................................................................................................................................................E......................................................................................................................F.................................................................................................................................................................................................................E......E.E................EE.E..................................................................................................................................E......................................F.................................................................................................E...............E........E.......................................................................................F.....................................................................................................................................F...F......E........................................................E........................................................................................................................................................................................................................................E........................................................F.S......S.S..................................................E.............................................................................................................................................................................................................F...F....................................EEEE......................................F...F..............................................................................................................................................................E.E.............................................................................................E.E......................................................................................................................................................................................................................................................................................................................................................................................................................SSSSSS..........................E..........S....E....................................
 
-Finished tests in 282.477892s, 12.3726 tests/s, 35.3939 assertions/s.
+Finished tests in 281.443460s, 12.4181 tests/s, 35.4316 assertions/s.
 
   1) Failure:
 test_remove_column_with_multi_column_index(ActiveRecord::Migration::RenameColumnTest) [/home/chris/Documents/rails/activerecord/test/cases/migration/rename_column_test.rb:115]:
@@ -16,7 +16,34 @@ test_remove_column_with_multi_column_index(ActiveRecord::Migration::RenameColumn
 +[]
 
 
-  2) Failure:
+  2) Error:
+test_eager_load_has_many_through_has_many(AssociationsJoinModelTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "authors".id FROM "authors" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "authors"."id" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE (name = 'David')  ORDER BY comments.id LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:314:in `find_first'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:90:in `first'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:129:in `first'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/join_model_test.rb:412:in `test_eager_load_has_many_through_has_many'
+
+  3) Failure:
 test_preserving_time_objects_with_time_with_zone_conversion_to_default_timezone_local(BasicsTest) [/home/chris/Documents/rails/activerecord/test/cases/base_test.rb:280]:
 --- expected
 +++ actual
@@ -25,74 +52,233 @@ test_preserving_time_objects_with_time_with_zone_conversion_to_default_timezone_
 +2000-01-01 06:00:00 -0500
 
 
-  3) Failure:
+  4) Failure:
 test_preserving_time_objects_with_utc_time_conversion_to_default_timezone_local(BasicsTest) [/home/chris/Documents/rails/activerecord/test/cases/base_test.rb:267]:
 Expected: 2000-01-01 00:00:00 UTC
   Actual: 2000-01-01 00:00:00 -0500
 
-  4) Failure:
-test_pluck_with_selection_clause(CalculationsTest) [/home/chris/Documents/rails/activerecord/test/cases/calculations_test.rb:509]:
-Expected: [50, 53, 55, 60]
-  Actual: [50, 50, 50, 53, 55, 60]
-
-  5) Failure:
-test_should_serialize_datetime_with_timezone_reloaded(DefaultXmlSerializationTimezoneTest) [/home/chris/Documents/rails/activerecord/test/cases/xml_serialization_test.rb:176]:
-Expected /<updated-at type=\"dateTime\">2006-07-31T17:00:00-07:00<\/updated-at>/ to match "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<toy>\n  <toy-id type=\"integer\">3</toy-id>\n  <name>Minnie</name>\n  <pet-id type=\"integer\" nil=\"true\"/>\n  <integer type=\"integer\" nil=\"true\"/>\n  <created-at type=\"dateTime\">2013-02-14T15:29:47-08:00</created-at>\n  <updated-at type=\"dateTime\">2006-07-31T16:00:00-07:00</updated-at>\n</toy>\n".
+  5) Error:
+test_eager_association_loading_with_multiple_stis_and_order(CascadedEagerLoadingTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'name' in the ORDER BY clause is invalid: SELECT  DISTINCT "authors".id FROM "authors" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "authors"."id" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" AND "comments"."type" IN ('SpecialComment', 'SubSpecialComment') LEFT OUTER JOIN "comments" "very_special_comments_posts" ON "very_special_comments_posts"."post_id" = "posts"."id" AND "very_special_comments_posts"."type" IN ('VerySpecialComment') WHERE (posts.id = 4)  ORDER BY authors.name, comments.body, very_special_comments_posts.body LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:314:in `find_first'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:90:in `first'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:129:in `first'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/cascaded_eager_loading_test.rb:145:in `test_eager_association_loading_with_multiple_stis_and_order'
 
   6) Failure:
-test_count_eager_with_has_many_and_limit_and_high_offset(EagerAssociationTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:580]:
-Expected: 0
-  Actual: 1
+test_should_serialize_datetime_with_timezone_reloaded(DefaultXmlSerializationTimezoneTest) [/home/chris/Documents/rails/activerecord/test/cases/xml_serialization_test.rb:176]:
+Expected /<updated-at type=\"dateTime\">2006-07-31T17:00:00-07:00<\/updated-at>/ to match "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<toy>\n  <toy-id type=\"integer\">3</toy-id>\n  <name>Minnie</name>\n  <pet-id type=\"integer\" nil=\"true\"/>\n  <integer type=\"integer\" nil=\"true\"/>\n  <created-at type=\"dateTime\">2013-02-16T05:46:50-08:00</created-at>\n  <updated-at type=\"dateTime\">2006-07-31T16:00:00-07:00</updated-at>\n</toy>\n".
 
-  7) Failure:
-test_eager_with_has_many_and_limit_and_conditions_array_on_the_eagers(EagerAssociationTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:548]:
-Expected: 2
-  Actual: 1
+  7) Error:
+test_include_has_many_using_primary_key(EagerAssociationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'name' in the ORDER BY clause is invalid: SELECT  DISTINCT "companies".id FROM "companies" LEFT OUTER JOIN "companies" "clients_using_primary_keys_companies" ON "clients_using_primary_keys_companies"."firm_name" = "companies"."name" AND "clients_using_primary_keys_companies"."type" IN ('Client', 'SpecialClient', 'VerySpecialClient') WHERE "companies"."type" IN ('Firm') AND "companies"."id" = ?  ORDER BY clients_using_primary_keys_companies.name LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:260:in `find_one'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:246:in `find_with_ids'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:35:in `find'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:1062:in `test_include_has_many_using_primary_key'
 
-  8) Failure:
-test_eager_with_has_many_and_limit_and_high_offset(EagerAssociationTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:558]:
-Expected: 0
-  Actual: 1
+  8) Error:
+test_limited_eager_with_multiple_order_columns(EagerAssociationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'title' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "authors" ON "authors"."id" = "posts"."author_id" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "authors"."name" = 'David'  ORDER BY UPPER(posts.title), posts.id LIMIT (2) OFFSET (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:793:in `test_limited_eager_with_multiple_order_columns'
 
-  9) Failure:
-test_limited_eager_with_multiple_order_columns(EagerAssociationTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:799]:
---- expected
-+++ actual
-@@ -1 +1 @@
--[#<StiPost id: 5, author_id: 1, title: "sti me", body: "hello", type: "StiPost", comments_count: 0, taggings_count: 0, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 0, tags_with_destroy_count: 0, tags_with_nullify_count: 0>, #<Post id: 4, author_id: 1, title: "sti comments", body: "hello", type: "Post", comments_count: 0, taggings_count: 0, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 0, tags_with_destroy_count: 0, tags_with_nullify_count: 0>]
-+[#<Post id: 1, author_id: 1, title: "Welcome to the weblog", body: "Such a lovely day", type: "Post", comments_count: 2, taggings_count: 1, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 1, tags_with_destroy_count: 0, tags_with_nullify_count: 0>, #<StiPost id: 5, author_id: 1, title: "sti me", body: "hello", type: "StiPost", comments_count: 0, taggings_count: 0, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 0, tags_with_destroy_count: 0, tags_with_nullify_count: 0>]
+  9) Error:
+test_limited_eager_with_order(EagerAssociationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'title' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "authors" ON "authors"."id" = "posts"."author_id" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "authors"."name" = 'David'  ORDER BY UPPER(posts.title) LIMIT (2) OFFSET (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:776:in `test_limited_eager_with_order'
 
+ 10) Error:
+test_nested_loading_through_has_one_association_with_order_on_association(EagerAssociationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "author_addresses".id FROM "author_addresses" LEFT OUTER JOIN "authors" ON "authors"."author_address_id" = "author_addresses"."id" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "authors"."id" WHERE "author_addresses"."id" = ?  ORDER BY authors.id LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:260:in `find_one'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:246:in `find_with_ids'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:35:in `find'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:265:in `test_nested_loading_through_has_one_association_with_order_on_association'
 
- 10) Failure:
-test_limited_eager_with_order(EagerAssociationTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:782]:
---- expected
-+++ actual
-@@ -1 +1 @@
--[#<StiPost id: 5, author_id: 1, title: "sti me", body: "hello", type: "StiPost", comments_count: 0, taggings_count: 0, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 0, tags_with_destroy_count: 0, tags_with_nullify_count: 0>, #<Post id: 4, author_id: 1, title: "sti comments", body: "hello", type: "Post", comments_count: 0, taggings_count: 0, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 0, tags_with_destroy_count: 0, tags_with_nullify_count: 0>]
-+[#<Post id: 1, author_id: 1, title: "Welcome to the weblog", body: "Such a lovely day", type: "Post", comments_count: 2, taggings_count: 1, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 1, tags_with_destroy_count: 0, tags_with_nullify_count: 0>, #<StiPost id: 5, author_id: 1, title: "sti me", body: "hello", type: "StiPost", comments_count: 0, taggings_count: 0, taggings_with_delete_all_count: 0, taggings_with_destroy_count: 0, tags_count: 0, tags_with_destroy_count: 0, tags_with_nullify_count: 0>]
+ 11) Error:
+test_nested_loading_through_has_one_association_with_order_on_nested_association(EagerAssociationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "author_addresses".id FROM "author_addresses" LEFT OUTER JOIN "authors" ON "authors"."author_address_id" = "author_addresses"."id" LEFT OUTER JOIN "posts" ON "posts"."author_id" = "authors"."id" WHERE "author_addresses"."id" = ?  ORDER BY posts.id LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:260:in `find_one'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:246:in `find_with_ids'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:35:in `find'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:270:in `test_nested_loading_through_has_one_association_with_order_on_nested_association'
 
+ 12) Error:
+test_order_on_join_table_with_include_and_limit(EagerAssociationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'joined_on' in the ORDER BY clause is invalid: SELECT  DISTINCT "developers".id FROM "developers" LEFT OUTER JOIN "developers_projects" ON "developers_projects"."developer_id" = "developers"."id" LEFT OUTER JOIN "projects" ON "projects"."id" = "developers_projects"."project_id"  ORDER BY developers_projects.joined_on DESC LIMIT (5)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:955:in `test_order_on_join_table_with_include_and_limit'
 
- 11) Failure:
-test_order_on_join_table_with_include_and_limit(EagerAssociationTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/eager_test.rb:955]:
-Expected: 5
-  Actual: 4
-
- 12) Failure:
-test_exists_does_not_select_columns_without_alias(FinderTest) [/home/chris/Documents/rails/activerecord/test/cases/finder_test.rb:61]:
-Query pattern(s) /SELECT\W+1 AS one FROM ["`]topics["`]/i not found.
-Queries:
-SELECT TOP (1) 1 AS one FROM "topics" 
-
- 13) Failure:
-test_find_with_order_on_included_associations_with_construct_finder_sql_for_association_limiting_and_is_distinct(FinderTest) [/home/chris/Documents/rails/activerecord/test/cases/finder_test.rb:793]:
-Expected: 2
-  Actual: 1
+ 13) Error:
+test_find_with_order_on_included_associations_with_construct_finder_sql_for_association_limiting_and_is_distinct(FinderTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "categorizations" ON "categorizations"."category_id" = "posts"."id" LEFT OUTER JOIN "authors" ON "authors"."id" = "categorizations"."author_id" LEFT OUTER JOIN "author_addresses" ON "author_addresses"."id" = "authors"."author_address_id"  ORDER BY author_addresses.id DESC  LIMIT (2)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/test/cases/finder_test.rb:793:in `test_find_with_order_on_included_associations_with_construct_finder_sql_for_association_limiting_and_is_distinct'
 
  14) Failure:
 test_take_and_first_and_last_with_integer_should_use_sql_limit(FinderTest) [/home/chris/Documents/rails/activerecord/test/cases/finder_test.rb:253]:
 Query pattern(s) /LIMIT 3|ROWNUM <= 3/ not found.
 Queries:
-SELECT TOP (3) "topics".* FROM "topics" 
+SELECT  "topics".* FROM "topics"  LIMIT (3)
 
  15) Error:
 test_count_with_finder_sql(HasAndBelongsToManyAssociationsTest):
@@ -117,6 +303,41 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/test/cases/associations/has_and_belongs_to_many_associations_test.rb:804:in `test_count_with_finder_sql'
 
  16) Error:
+test_dynamic_find_should_respect_association_include(HasAndBelongsToManyAssociationsTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "categorizations" ON "categorizations"."category_id" = "posts"."id" LEFT OUTER JOIN "authors" ON "authors"."id" = "categorizations"."author_id" INNER JOIN "categories_posts" ON "posts"."id" = "categories_posts"."post_id" WHERE "categories_posts"."category_id" = ? AND "posts"."title" = 'Welcome to the weblog'  ORDER BY authors.id LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:48:in `find_by'
+    /home/chris/Documents/rails/activerecord/lib/active_record/dynamic_matchers.rb:76:in `find_by_title'
+    /home/chris/Documents/rails/activerecord/lib/active_record/dynamic_matchers.rb:20:in `method_missing'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/delegation.rb:62:in `block in method_missing'
+    /home/chris/Documents/rails/activerecord/lib/active_record/associations/collection_proxy.rb:845:in `block in scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:246:in `scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/associations/collection_proxy.rb:845:in `scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/delegation.rb:62:in `method_missing'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/collection_proxy.rb:16:in `method_missing'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/has_and_belongs_to_many_associations_test.rb:786:in `test_dynamic_find_should_respect_association_include'
+
+ 17) Error:
 test_find_scoped_grouped_having(HasAndBelongsToManyAssociationsTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Invalid expression near 'SUM': SELECT SUM(salary) as salary FROM "developers" INNER JOIN "developers_projects" ON "developers"."id" = "developers_projects"."developer_id" WHERE "developers_projects"."project_id" = ? GROUP BY developers.salary HAVING SUM(salary) > 10000
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -143,13 +364,13 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/associations/collection_proxy.rb:700:in `size'
     /home/chris/Documents/rails/activerecord/test/cases/associations/has_and_belongs_to_many_associations_test.rb:710:in `test_find_scoped_grouped_having'
 
- 17) Failure:
+ 18) Failure:
 test_clearing_updates_counter_cache_when_inverse_counter_cache_is_a_symbol_with_dependent_destroy(HasManyAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:872]:
 "car.reload.engines_count" didn't change by -1.
 Expected: 0
   Actual: -1
 
- 18) Failure:
+ 19) Failure:
 test_transaction_when_deleting_persisted(HasManyAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:831]:
 --- expected
 +++ actual
@@ -158,7 +379,7 @@ test_transaction_when_deleting_persisted(HasManyAssociationsTest) [/home/chris/D
 +#<ActiveRecord::Associations::CollectionProxy [#<Client id: 112, type: "Client", firm_id: nil, firm_name: nil, name: "Bad", client_of: 1, rating: 1, account_id: nil, description: "">]>
 
 
- 19) Failure:
+ 20) Failure:
 test_transactions_when_replacing_on_persisted(HasManyAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:1242]:
 --- expected
 +++ actual
@@ -167,13 +388,100 @@ test_transactions_when_replacing_on_persisted(HasManyAssociationsTest) [/home/ch
 +#<ActiveRecord::Associations::CollectionProxy []>
 
 
- 20) Failure:
-test_add_table_with_decimals(MigrationTest) [/home/chris/Documents/rails/activerecord/test/cases/migration_test.rb:171]:
-Expected #<BigDecimal:b6e2318,'0.2718282E1',18(18)> to be a kind of Fixnum, not BigDecimal.
-
  21) Error:
+test_should_generate_valid_sql(HasManyAssociationsTestForReorderWithJoinDependency):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'comments_count' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE "posts"."author_id" = ? AND (comments.id > 0)  ORDER BY posts.comments_count ASC, posts.taggings_count ASC LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:327:in `find_last'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:123:in `last'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:146:in `last'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/has_many_associations_test.rb:104:in `test_should_generate_valid_sql'
+
+ 22) Error:
+test_dynamic_find_should_respect_association_include(HasManyThroughAssociationsTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "posts".id FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" INNER JOIN "readers" ON "posts"."id" = "readers"."post_id" WHERE "readers"."person_id" = ? AND "posts"."title" = 'Welcome to the weblog'  ORDER BY comments.id LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:48:in `find_by'
+    /home/chris/Documents/rails/activerecord/lib/active_record/dynamic_matchers.rb:76:in `find_by_title'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/delegation.rb:36:in `block in find_by_title'
+    /home/chris/Documents/rails/activerecord/lib/active_record/associations/collection_proxy.rb:845:in `block in scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:246:in `scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/associations/collection_proxy.rb:845:in `scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/delegation.rb:36:in `find_by_title'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/has_many_through_associations_test.rb:527:in `test_dynamic_find_should_respect_association_include'
+
+ 23) Error:
+test_parent_instance_should_be_shared_with_eager_loaded_children(InverseHasManyTests):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'id' in the ORDER BY clause is invalid: SELECT  DISTINCT "men".id FROM "men" LEFT OUTER JOIN "interests" ON "interests"."man_id" = "men"."id" WHERE "men"."name" = 'Gordon'  ORDER BY interests.id LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:314:in `find_first'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:90:in `first'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:129:in `first'
+    /home/chris/Documents/rails/activerecord/test/cases/associations/inverse_associations_test.rb:192:in `test_parent_instance_should_be_shared_with_eager_loaded_children'
+
+ 24) Failure:
+test_add_table_with_decimals(MigrationTest) [/home/chris/Documents/rails/activerecord/test/cases/migration_test.rb:171]:
+Expected #<BigDecimal:9647d88,'0.2718282E1',18(18)> to be a kind of Fixnum, not BigDecimal.
+
+ 25) Error:
 test_associations_should_work_when_model_has_no_connection(MultipleDbTest):
-ActiveRecord::StatementInvalid: ActiveRecord::ConnectionNotEstablished: ActiveRecord::ConnectionNotEstablished: SELECT TOP (1) "colleges".* FROM "colleges"  ORDER BY "colleges"."id" ASC
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionNotEstablished: ActiveRecord::ConnectionNotEstablished: SELECT  "colleges".* FROM "colleges"   ORDER BY "colleges"."id" ASC LIMIT (1)
     /home/chris/Documents/rails/activerecord/lib/active_record/connection_handling.rb:75:in `connection_pool'
     /home/chris/Documents/rails/activerecord/lib/active_record/connection_handling.rb:71:in `connection_config'
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:626:in `native_type_to_ruby_type'
@@ -203,40 +511,238 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionNotEstablished: ActiveRe
     /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
     /home/chris/Documents/rails/activerecord/test/cases/multiple_db_test.rb:100:in `test_associations_should_work_when_model_has_no_connection'
 
- 22) Failure:
-test_distinct_has_many_through_a_has_many_through_association_on_source_reflection(NestedThroughAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/nested_through_associations_test.rb:397]:
---- expected
-+++ actual
-@@ -1 +1 @@
--[#<Tag id: 1, name: "General", taggings_count: 0>]
-+#<ActiveRecord::Associations::CollectionProxy [#<Tag id: 1, name: "General", taggings_count: 0>, #<Tag id: 1, name: "General", taggings_count: 0>]>
-
-
- 23) Failure:
-test_distinct_has_many_through_a_has_many_through_association_on_through_reflection(NestedThroughAssociationsTest) [/home/chris/Documents/rails/activerecord/test/cases/associations/nested_through_associations_test.rb:402]:
---- expected
-+++ actual
-@@ -1 +1 @@
--[#<Subscriber nick: "alterself", name: "Luke Holden", books_count: 0>, #<Subscriber nick: "webster132", name: "David Heinemeier Hansson", books_count: 0>]
-+#<ActiveRecord::Relation [#<Subscriber nick: "alterself", name: "Luke Holden", books_count: 0>, #<Subscriber nick: "webster132", name: "David Heinemeier Hansson", books_count: 0>, #<Subscriber nick: "webster132", name: "David Heinemeier Hansson", books_count: 0>]>
-
-
- 24) Failure:
+ 26) Failure:
 test_string_ids(PersistencesTest) [/home/chris/Documents/rails/activerecord/test/cases/persistence_test.rb:405]:
 Expected: "1234"
   Actual: "'1234'"
 
- 25) Failure:
+ 27) Failure:
 test_update_all_doesnt_ignore_order(PersistencesTest) [/home/chris/Documents/rails/activerecord/test/cases/persistence_test.rb:44]:
 Failed assertion, no message given.
 
- 26) Failure:
+ 28) Error:
+test_eager_find_with_lock(PessimisticLockingTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:37:in `block in find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:36:in `find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:260:in `find_one'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:246:in `find_with_ids'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:35:in `find'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:373:in `block (2 levels) in test_eager_find_with_lock'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `block in transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:209:in `within_new_transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/transactions.rb:209:in `transaction'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:372:in `block in test_eager_find_with_lock'
+    /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:371:in `test_eager_find_with_lock'
+
+ 29) Error:
+test_sane_find_with_lock(PessimisticLockingTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:37:in `block in find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:36:in `find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:260:in `find_one'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:246:in `find_with_ids'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:35:in `find'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:362:in `block (2 levels) in test_sane_find_with_lock'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `block in transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:209:in `within_new_transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/transactions.rb:209:in `transaction'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:361:in `block in test_sane_find_with_lock'
+    /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:360:in `test_sane_find_with_lock'
+
+ 30) Error:
+test_sane_lock_method(PessimisticLockingTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:37:in `block in find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:36:in `find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:260:in `find_one'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:246:in `find_with_ids'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:35:in `find'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:336:in `block in reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/scoping/default.rb:39:in `block in unscoped'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:246:in `scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/scoping/default.rb:39:in `unscoped'
+    /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:336:in `reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/attribute_methods/dirty.rb:49:in `reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/autosave_association.rb:215:in `reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/locking/pessimistic.rb:62:in `lock!'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:385:in `block (2 levels) in test_sane_lock_method'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `block in transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:209:in `within_new_transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/transactions.rb:209:in `transaction'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:382:in `block in test_sane_lock_method'
+    /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:381:in `test_sane_lock_method'
+
+ 31) Error:
+test_with_lock_commits_transaction(PessimisticLockingTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Syntax error near 'FOR' on line 1: SELECT  "people".* FROM "people"  WHERE "people"."id" = ? LIMIT (1) FOR UPDATE
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:37:in `block in find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/querying.rb:36:in `find_by_sql'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:302:in `find_take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:65:in `take'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:260:in `find_one'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:246:in `find_with_ids'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:35:in `find'
+    /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:122:in `find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:336:in `block in reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/scoping/default.rb:39:in `block in unscoped'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:246:in `scoping'
+    /home/chris/Documents/rails/activerecord/lib/active_record/scoping/default.rb:39:in `unscoped'
+    /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:336:in `reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/attribute_methods/dirty.rb:49:in `reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/autosave_association.rb:215:in `reload'
+    /home/chris/Documents/rails/activerecord/lib/active_record/locking/pessimistic.rb:62:in `lock!'
+    /home/chris/Documents/rails/activerecord/lib/active_record/locking/pessimistic.rb:71:in `block in with_lock'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `block in transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:209:in `within_new_transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:201:in `transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/transactions.rb:209:in `transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/transactions.rb:260:in `transaction'
+    /home/chris/Documents/rails/activerecord/lib/active_record/locking/pessimistic.rb:70:in `with_lock'
+    /home/chris/Documents/rails/activerecord/test/cases/locking_test.rb:393:in `test_with_lock_commits_transaction'
+
+ 32) Failure:
 test_cache_does_not_wrap_string_results_in_arrays(QueryCacheTest) [/home/chris/Documents/rails/activerecord/test/cases/query_cache_test.rb:175]:
 Expected 2 to be an instance of String, not Fixnum.
 
- 27) Error:
+ 33) Failure:
+test_cache_is_ignored_for_locked_relations(QueryCacheTest) [/home/chris/Documents/rails/activerecord/test/cases/query_cache_test.rb:184]:
+1 instead of 2 queries were executed.
+Queries:
+SELECT  "tasks".* FROM "tasks"  WHERE "tasks"."id" = ? LIMIT (1) FOR UPDATE.
+Expected: 2
+  Actual: 1
+
+ 34) Error:
+test_finding_with_complex_order_and_limit(RelationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'taggable_type' in the ORDER BY clause is invalid: SELECT  DISTINCT "tags".id FROM "tags" LEFT OUTER JOIN "taggings" ON "taggings"."tag_id" = "tags"."id"  ORDER BY REPLACE('abc', taggings.taggable_type, taggings.taggable_type) LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:209:in `test_finding_with_complex_order_and_limit'
+
+ 35) Error:
+test_finding_with_cross_table_order_and_limit(RelationTest):
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Function or column reference to 'name' in the ORDER BY clause is invalid: SELECT  DISTINCT "tags".id FROM "tags" LEFT OUTER JOIN "taggings" ON "taggings"."tag_id" = "tags"."id"  ORDER BY tags.name asc, taggings.taggable_id asc, REPLACE('abc', taggings.taggable_type, taggings.taggable_type) LIMIT (1)
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:534:in `block in exec_query'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:320:in `block in log'
+    /home/chris/Documents/rails/activesupport/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract_adapter.rb:315:in `log'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:532:in `exec_query'
+    /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:463:in `select'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/database_statements.rb:24:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:230:in `construct_limited_ids_condition'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:215:in `apply_join_dependency'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:204:in `construct_relation_for_association_find'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:183:in `find_with_associations'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:565:in `exec_queries'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `block in load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/explain.rb:36:in `logging_query_plan'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:456:in `load'
+    /home/chris/Documents/rails/activerecord/lib/active_record/relation.rb:197:in `to_a'
+    /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:202:in `test_finding_with_cross_table_order_and_limit'
+
+ 36) Error:
 test_update_all_with_joins_and_limit(RelationTest):
-ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: The result returned is non-deterministic: UPDATE "comments" SET "comments"."post_id" = 2 WHERE "comments"."id" IN (SELECT TOP (1) "comments"."id" FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" WHERE "posts"."id" = 1)
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: The result returned is non-deterministic: UPDATE "comments" SET "comments"."post_id" = 2 WHERE "comments"."id" IN (SELECT  "comments"."id" FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" WHERE "posts"."id" = 1 LIMIT (1))
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:570:in `block in exec_query'
@@ -251,9 +757,9 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:54:in `update_all_with_deprecated_options'
     /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:1221:in `test_update_all_with_joins_and_limit'
 
- 28) Error:
+ 37) Error:
 test_update_all_with_joins_and_offset(RelationTest):
-ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: The result returned is non-deterministic: UPDATE "comments" SET "comments"."post_id" = 2 WHERE "comments"."id" IN (SELECT TOP (2147483647) START AT (2) "comments"."id" FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" WHERE "posts"."id" = 1)
+ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: The result returned is non-deterministic: UPDATE "comments" SET "comments"."post_id" = 2 WHERE "comments"."id" IN (SELECT "comments"."id" FROM "comments" INNER JOIN "posts" ON "posts"."id" = "comments"."post_id" WHERE "posts"."id" = 1 LIMIT (2147483647) OFFSET (1))
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:285:in `sqlanywhere_error_test'
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:570:in `block in exec_query'
@@ -268,7 +774,7 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/.rvm/gems/ruby-1.9.3-p362@rails_adapter_test/bundler/gems/activerecord-deprecated_finders-5937f3e7102f/lib/active_record/deprecated_finders/relation.rb:54:in `update_all_with_deprecated_options'
     /home/chris/Documents/rails/activerecord/test/cases/relations_test.rb:1236:in `test_update_all_with_joins_and_offset'
 
- 29) Error:
+ 38) Error:
 test_leaky_destroy(TransactionalFixturesOnCustomConnectionTest):
 ActiveRecord::RecordNotFound: Couldn't find Course with id=1
     /home/chris/Documents/rails/activerecord/lib/active_record/relation/finder_methods.rb:265:in `find_one'
@@ -284,7 +790,7 @@ ActiveRecord::RecordNotFound: Couldn't find Course with id=1
     /home/chris/Documents/rails/activesupport/lib/active_support/test_case.rb:64:in `assert_nothing_raised'
     /home/chris/Documents/rails/activerecord/test/cases/fixtures_test.rb:501:in `test_leaky_destroy'
 
- 30) Error:
+ 39) Error:
 test_validate_uniqueness_with_limit_and_utf8(UniquenessValidationTest):
 ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereException: Right truncation of string data: INSERT INTO "events" ("title") VALUES (?)
     /home/chris/Documents/activerecord-sqlanywhere-adapter/lib/active_record/connection_adapters/sqlanywhere_adapter.rb:290:in `sqlanywhere_error'
@@ -301,13 +807,13 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:436:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/attribute_methods/dirty.rb:78:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:303:in `block in create_record'
-    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__4484115000490938852__create__callbacks'
+    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__534596106946959512__create__callbacks'
     /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:78:in `run_callbacks'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:303:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/timestamp.rb:57:in `create_record'
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:413:in `create_or_update'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:299:in `block in create_or_update'
-    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__4484115000490938852__save__callbacks'
+    /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:373:in `_run__534596106946959512__save__callbacks'
     /home/chris/Documents/rails/activesupport/lib/active_support/callbacks.rb:78:in `run_callbacks'
     /home/chris/Documents/rails/activerecord/lib/active_record/callbacks.rb:299:in `create_or_update'
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:101:in `save'
@@ -326,4 +832,4 @@ ActiveRecord::StatementInvalid: ActiveRecord::ConnectionAdapters::SQLAnywhereExc
     /home/chris/Documents/rails/activerecord/lib/active_record/persistence.rb:37:in `create'
     /home/chris/Documents/rails/activerecord/test/cases/validations/uniqueness_validation_test.rb:315:in `test_validate_uniqueness_with_limit_and_utf8'
 
-3495 tests, 9998 assertions, 23 failures, 7 errors, 30 skips
+3495 tests, 9972 assertions, 13 failures, 26 errors, 30 skips
