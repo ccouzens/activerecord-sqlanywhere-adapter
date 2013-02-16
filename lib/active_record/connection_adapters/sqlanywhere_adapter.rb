@@ -173,7 +173,8 @@ module ActiveRecord
    
       def active?
         # The liveness variable is used a low-cost "no-op" to test liveness
-        SA.instance.api.sqlany_execute_immediate(@connection, "SET liveness = 1") == 1
+        execute("SET liveness = 1")
+        true
       rescue
         false
       end
@@ -521,11 +522,11 @@ SQL
         end
 
         def set_connection_options
-          SA.instance.api.sqlany_execute_immediate(@connection, "SET TEMPORARY OPTION non_keywords = 'LOGIN'") rescue nil
-          SA.instance.api.sqlany_execute_immediate(@connection, "SET TEMPORARY OPTION timestamp_format = 'YYYY-MM-DD HH:NN:SS'") rescue nil
+          execute("SET TEMPORARY OPTION non_keywords = 'LOGIN'")
+          execute("SET TEMPORARY OPTION timestamp_format = 'YYYY-MM-DD HH:NN:SS'")
           execute("SET OPTION PUBLIC.reserved_keywords = 'LIMIT'")
           # The liveness variable is used a low-cost "no-op" to test liveness
-          SA.instance.api.sqlany_execute_immediate(@connection, "CREATE VARIABLE liveness INT") rescue nil
+          execute("CREATE VARIABLE liveness INT")
         end
 		
       def exec_query(sql, name = nil, binds = [])
